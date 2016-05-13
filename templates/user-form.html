@@ -1,0 +1,8 @@
+<form ng-submit="vm.newUser(newUserName)">
+  <div class="form-group">
+    <label for="user-name">Name :</label>
+    <input type="text" ng-model="newUserName" class="form-control" placeholder="name"/>
+  </div>
+  <input class="btn btn-primary" type="submit" value="Save"/>
+</form>
+<button ui-sref="^.list">Back to users list</button>

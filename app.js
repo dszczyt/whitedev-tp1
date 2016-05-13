@@ -14,6 +14,16 @@
       "users",
       {
         url: "/users",
+        template: "<ui-view/>",
+        controller: function($state) {
+          if($state.is('users'))
+            $state.go('.list');
+        }
+      }
+    )
+    .state(
+      "users.list",
+      {
         template: "" +
           "<users users=\"vm.users\"></users>" +
           "<a href=\"javascript:void(0);\" ui-sref=\".bidon\">lien vers l'état bidon</a>" +
@@ -30,9 +40,26 @@
       }
     )
     .state(
-      "user",
+      "users.new",
       {
-        url: "/users/:id",
+        url: "/new",
+        templateUrl: "/templates/user-form.html",
+        controller: function(Restangular, $state) {
+          this.newUser = function(userName) {
+            Restangular.all("users").post({
+              name: userName
+            }).then(function() {
+              $state.go('^.list');
+            });
+          };
+        },
+        controllerAs: 'vm'
+      }
+    )
+    .state(
+      "users.details",
+      {
+        url: "/:id",
         template: "<div user=\"vm.user\" mode=\"details\"></div>",
         resolve: {
           user: function(Restangular, $stateParams) {
@@ -63,13 +90,6 @@
       bindToController: true,
       controller: function(Restangular, $state) {
         this.userElements = [];
-        this.saveNewUser = function(userName) {
-          Restangular.all("users").post({
-            name: userName
-          }).then(function() {
-            $state.reload();
-          });
-        };
 
         this.test = function() {
           this.userElements.forEach(function(user) {

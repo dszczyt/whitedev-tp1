@@ -1,20 +1,16 @@
-<form ng-submit="vm.saveNewUser(new_user_name)">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr user="user" ng-repeat="user in vm.users"></tr>
-      <tr>
-        <td>New :</td>
-        <td><input type="text" ng-model="new_user_name" class="form-control"/></td>
-        <td><input class="btn btn-primary" type="submit" value="enregistrer"/></td>
-      </tr>
-    </tbody>
-  </table>
-</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr user="user" ng-repeat="user in vm.users"></tr>
+  </tbody>
+</table>
+
+<button ui-sref="^.new">New user</button>
+
 <button ng-click="vm.test()">test</button>
