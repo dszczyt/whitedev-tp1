@@ -43,7 +43,7 @@
       "users.new",
       {
         url: "/new",
-        templateUrl: "/templates/user-form.html",
+        template: "<user-form action=\"vm.newUser(userName)\"/>",
         controller: function(Restangular, $state) {
           this.newUser = function(userName) {
             Restangular.all("users").post({
@@ -98,7 +98,24 @@
         };
       }
     };
-  }).directive("user", function() {
+  })
+  .directive(
+    "userForm",
+    function() {
+      return {
+        restrict: 'E',
+        scope: {
+          action: '&'
+        },
+        controllerAs: "vm",
+        bindToController: true,
+        templateUrl: '/templates/user-form.html',
+        controller: function() {
+        }
+      };
+    }
+  )
+  .directive("user", function() {
     return {
       restrict: 'EA',
       scope: {
